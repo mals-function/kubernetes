@@ -15,7 +15,7 @@ spec:
       initContainers:
       - name: init-container
         image: curlimages/curl
-        command: ["sh", "-c", "curl -o /usr/share/nginx/html/index.html https://raw.githubusercontent.com/<your-username>/<your-repo>/main/index.html"]
+        command: ["sh", "-c", "curl -o /usr/share/nginx/html/index.html https://raw.githubusercontent.com/mals-function/kubernetes/main/index.html"]
         volumeMounts:
         - name: html
           mountPath: /usr/share/nginx/html
