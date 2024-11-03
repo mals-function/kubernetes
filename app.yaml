@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: display-name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: display-name
+  template:
+    metadata:
+      labels:
+        app: display-name
+    spec:
+      initContainers:
+      - name: init-container
+        image: curlimages/curl
+        command: ["sh", "-c", "curl -o /usr/share/nginx/html/index.html https://raw.githubusercontent.com/<your-username>/<your-repo>/main/index.html"]
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+      containers:
+      - name: nginx
+        image: nginx
+        volumeMounts:
+        - name: html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: html
+        emptyDir: {}
